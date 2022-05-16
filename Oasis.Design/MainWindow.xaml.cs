@@ -12,17 +12,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
+using Oasis.Core;
+using Oasis.Core.Models;
 
 namespace Oasis.Design
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            // InitialPerson();
+        }
+        private void InitialPerson()
+        {
+            using (Context context = new Context())
+            {
+                Admin admin = new Admin("admin", "root");
+                User user1 = new User("s1mple", "qwerty123", "Oleksandr", "Kostyliev");
+
+                context.People.Add(admin);
+                context.People.Add(user1);
+                context.SaveChanges();
+
+                MessageBox.Show("Saved");
+            }
         }
     }
 }
